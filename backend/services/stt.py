@@ -1,4 +1,4 @@
-﻿import tempfile
+import tempfile
 import os
 from openai import AsyncOpenAI
 from config import settings
@@ -6,7 +6,8 @@ from config import settings
 client = AsyncOpenAI(api_key=settings.openai_api_key)
 
 async def transcribe_audio(audio_bytes: bytes, filename: str = "audio.webm") -> str:
-    with tempfile.NamedTemporaryFile(suffix=os.path.splitext(filename)[1], delete=False) as tmp:
+    ext = os.path.splitext(filename)[1] or ".webm"
+    with tempfile.NamedTemporaryFile(suffix=ext, delete=False) as tmp:
         tmp.write(audio_bytes)
         tmp_path = tmp.name
     try:

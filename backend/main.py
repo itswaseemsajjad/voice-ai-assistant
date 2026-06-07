@@ -1,4 +1,4 @@
-﻿from fastapi import FastAPI, UploadFile, File, HTTPException
+from fastapi import FastAPI, UploadFile, File, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import StreamingResponse
 from pydantic import BaseModel
@@ -8,7 +8,7 @@ from services.stt import transcribe_audio
 from services.llm import chat
 from services.tts import synthesize
 
-app = FastAPI(title="Voice AI Assistant API")
+app = FastAPI(title="Voice AI Assistant API", version="1.0.0")
 
 app.add_middleware(
     CORSMiddleware,
@@ -27,7 +27,7 @@ class SynthesizeRequest(BaseModel):
 
 @app.get("/")
 async def health():
-    return {"status": "ok", "service": "Voice AI Assistant"}
+    return {"status": "ok", "service": "Voice AI Assistant", "version": "1.0.0"}
 
 @app.post("/api/transcribe")
 async def transcribe(audio: UploadFile = File(...)):
@@ -53,7 +53,7 @@ async def synthesize_endpoint(request: SynthesizeRequest):
         return StreamingResponse(
             io.BytesIO(audio_bytes),
             media_type="audio/mpeg",
-            headers={"Content-Disposition": "attachment; filename=speech.mp3"}
+            headers={"Content-Disposition": "attachment; filename=speech.mp3"},
         )
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
