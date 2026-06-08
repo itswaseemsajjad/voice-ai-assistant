@@ -9,6 +9,9 @@ A real-time AI voice assistant powered by OpenAI Whisper (speech-to-text), GPT-4
 - 🔊 Natural-sounding voice responses via ElevenLabs TTS
 - 💬 Visual chat history display
 - ⚡ FastAPI backend + React + Vite frontend
+- 📄 Conversation export to .txt
+- 🏥 Health check endpoint (`/health`)
+- 🎵 Audio utilities for format detection and encoding
 
 ## Architecture
 ```

@@ -7,6 +7,7 @@ import io
 from services.stt import transcribe_audio
 from services.llm import chat
 from services.tts import synthesize
+from routers.health import router as health_router
 
 app = FastAPI(title="Voice AI Assistant API", version="1.0.0")
 
@@ -17,6 +18,8 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+app.include_router(health_router, tags=["health"])
 
 class ChatRequest(BaseModel):
     message: str
